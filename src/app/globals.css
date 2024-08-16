@@ -18,16 +18,28 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
+    background: #eee;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+input {
+  /* border: none !important;  */
+  box-shadow: 0 0 0 1px #e8e8e8;
+  outline: none; 
+}
+
+input:focus {
+  border: none; 
+  box-shadow: 0 0 0 1.40px rgb(85, 162, 243);
 }

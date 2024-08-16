@@ -116,7 +116,8 @@ const Signup: React.FC = () => {
                     <p className={`mt-4 ${isSuccess ? 'text-green-500' : 'text-red-500'}`}>
                         {message}
                     </p>
-            )}
+                )}
+                
               </form>
             </div>
     );

@@ -18,7 +18,7 @@ const Weather: React.FC = () => {
                     });
                     setData(response.data);
                 } catch(err) {
-                    setError(err.message);
+                    setError(err?.message);
                 }
             } else {
                 setError('No token found');

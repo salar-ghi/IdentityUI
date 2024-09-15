@@ -10,6 +10,7 @@ const Signin: React.FC = () => {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
+    const [token, setToken] = useState('');
     const router = useRouter();
     const searchParams = useSearchParams();
     const returnUrl = searchParams.get('returnUrl');
@@ -21,8 +22,20 @@ const Signin: React.FC = () => {
             const isLoginSuccessful = await handleLogin(nationalId, password);
             if (isLoginSuccessful)
             {
-                console.log('if statement');
-                router.push('https://localhost:5000/apione/Message')
+                console.log(returnUrl);
+                console.log(`token ${localStorage.getItem('token')}`);
+                console.log(`https://localhost:5000${returnUrl}`);
+
+                const redirectToBack = await fetch(`https://localhost:5000${returnUrl}`, {
+                    method: 'GET',
+                    headers : {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json',
+                    },
+                })
+
+
+                // router.push(`https://localhost:5000${returnUrl}?token=${localStorage.getItem('token')}`)
             } else {
                 alert('Login failed. Please try again.');
             }
@@ -38,9 +51,10 @@ const Signin: React.FC = () => {
         });
         if ( response.status >= 200 && response.status < 300 ) {
             console.log(response.status);
-            const data = await response.data.token;
+            const  data = await response.data.token;
             localStorage.removeItem('token')
             localStorage.setItem('token', data);
+            setToken(data);
             setIsSuccess(true);
             return true;
         } else {
